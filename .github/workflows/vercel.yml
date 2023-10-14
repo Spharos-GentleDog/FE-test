@@ -21,8 +21,8 @@ jobs:
           API_TOKEN_GITHUB: AUTO_VERCEL
         with:
           source-directory: "output"
-          destination-github-username: [jeongs9203@naver.com]
-          destination-repository-name: [TestFront]
+          destination-github-username: jeongs9203@naver.com
+          destination-repository-name: TestFront
           user-email: ACCOUNT_EMAIL
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
