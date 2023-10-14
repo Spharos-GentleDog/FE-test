@@ -2,7 +2,7 @@ name: git push into another repo to deploy to vercel
 
 on:
   push:
-    branches: main
+    branches: [main]
 
 jobs:
   build:
@@ -18,12 +18,12 @@ jobs:
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: AUTO_VERCEL
+          API_TOKEN_GITHUB: ${{ AUTO_VERCEL }}
         with:
           source-directory: "output"
-          destination-github-username: jeongs9203@naver.com
-          destination-repository-name: https://github.com/jeongs9203/TestFront.git
-          user-email: ACCOUNT_EMAIL
+          destination-github-username: [jeongs9203]
+          destination-repository-name: [TestFront]
+          user-email: ${{ ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
       - name: Test get variable exported by push-to-another-repository
