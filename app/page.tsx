@@ -1,7 +1,7 @@
-'use client';
-import { Skeleton } from "@nextui-org/skeleton";
-import SlideImage from "@/components/module/SlideImage";
-import { Swiper, SwiperSlide } from "swiper/react";
+import SlideImage from '@/components/module/SlideImage';
+import SlideCategories from '@/components/module/SlideCategories';
+import SlideImage2 from '@/components/module/SlideImage2';
+import ProductCard from '@/components/module/ProductCard';
 
 export default function Home() {
   return (
@@ -10,27 +10,31 @@ export default function Home() {
       {/*  <Skeleton className="flex w-full h-full">asdf</Skeleton>*/}
       {/*</div>*/}
       {/* 베너 슬라이더 */}
-      <SlideImage></SlideImage>
+      <div className="bannerslide relative">
+        <SlideImage />
+      </div>
       {/* 카테고리 */}
-      <div className="p-5">
-        <div className="flex justify-between">
-          <div>Categories</div>
-          <div>View all</div>
-        </div>
-        <Swiper
-          slidesPerView={3}>
-          <SwiperSlide id="slide1">
-            <div className="">asdf</div>
-          </SwiperSlide>
-          <SwiperSlide id="slide1">
-            <div className="">1234</div>
-          </SwiperSlide>
-          <SwiperSlide id="slide1">
-            <div className="">zxcv</div>
-          </SwiperSlide>
-        </Swiper>
+      <div className="categories py-5">
+        <SlideCategories />
       </div>
       {/* 신상품 */}
+      <div className="new_product py-5">
+        <div className="flex justify-between items-baseline">
+          <p className="text-lg font-semibold">New</p>
+          <p className="text-gray-400 text-xs">View all</p>
+        </div>
+          <SlideImage2 />
+      </div>
+      {/* 베스트 */}
+      <div className="popular py-5">
+        <div className="flex justify-between items-baseline">
+          <p className="text-lg font-semibold">Best</p>
+          <p className="text-gray-400 text-xs">View all</p>
+        </div>
+        <ProductCard />
+      </div>
+      {/* 템플릿 이식 */}
+      
     </>
   );
 }

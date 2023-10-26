@@ -1,14 +1,6 @@
 'use client';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import { Skeleton } from '@nextui-org/skeleton';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { useEffect, useState } from 'react';
-import { Card, CircularProgress } from '@nextui-org/react';
-import { Image } from '@nextui-org/image';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-
+import { Card, Image, Skeleton } from '@nextui-org/react';
+import React, { useEffect, useState } from 'react';
 
 export async function fetchSlideImage() {
   const res = await fetch(
@@ -32,7 +24,7 @@ function DiscountCalc(price, discountRate) {
   };
 }
 
-export default function SlideImage() {
+function ProductCard() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,40 +43,25 @@ export default function SlideImage() {
       </div>
     );
   }
+
   return (
-    <Swiper
-      /*  페이지네이션 클릭으로 이동 가능 */
-      pagination={{ clickable: true }}
-      /*좌우 이동*/
-      navigation
-      /* 자동 이동 */
-      autoplay={{
-        delay: 3500,
-        disableOnInteraction: false,
-      }}
-      /* 끝나면 다시 처음으로 */
-      loop={true}
-      // 사진 안에 텍스트
-      modules={[Navigation, Pagination, Autoplay]}
-    >
+    <>
       {data.map((item) => {
         const prices = DiscountCalc(item.price, item.discount);
         return (
-          <div>
-            <SwiperSlide id={item.product_id}>
-              <div
-                style={{ backgroundImage: `url('${item.img_url}')` }}
-                className="w-full h-[480px] bg-no-repeat bg-auto flex flex-col justify-end p-4"
-              >
-                <div className={`brand${item.product_id}`}>
-                  {item.brand_name}
-                </div>
+          <Card id={item.product_id} shadow="sm" radius="sm" className="align-middle my-2">
+            <div className="flex p-2">
+              <div className="w-1/4 h-full">
+                <Image src={item.img_url} alt="image" radius='sm' className='h-full'/>
+              </div>
+              <div className='mx-2'>
+                <div>{item.brand_name}</div>
                 <div className="flex gap-1">
                   <div>
                     <Image
                       className="w-3 h-3 inline-block align-baseline"
                       src="star.svg"
-                      />
+                    />
                   </div>
                   <div className={`rate${item.product_id}`}>
                     {item.total_rating}
@@ -92,7 +69,7 @@ export default function SlideImage() {
                 </div>
                 <div
                   className={`price${item.product_id} text-gray-300 line-through`}
-                  >
+                >
                   {prices.original}원
                 </div>
                 <div className={`discount${item.product_id} text-purple-500`}>
@@ -102,10 +79,12 @@ export default function SlideImage() {
                   {prices.discounted}원
                 </div>
               </div>
-            </SwiperSlide>
-          </div>
+            </div>
+          </Card>
         );
       })}
-    </Swiper>
+    </>
   );
 }
+
+export default ProductCard;
